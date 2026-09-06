@@ -1,0 +1,108 @@
+{
+  "channel": "CTEST",
+  "user": "UME",
+  "recent": [
+    {
+      "user": "UPROF",
+      "text": "<@UME> 평가 결과표에 모델별 비교가 빠진 것 같은데 확인 가능한가요?",
+      "ts": "20.0",
+      "thread_ts": ""
+    }
+  ],
+  "target": {
+    "user": "UPROF",
+    "text": "<@UME> 평가 결과표에 모델별 비교가 빠진 것 같은데 확인 가능한가요?",
+    "ts": "20.0",
+    "thread_ts": ""
+  },
+  "thread": [
+    {
+      "user": "UPROF",
+      "text": "<@UME> 평가 결과표에 모델별 비교가 빠진 것 같은데 확인 가능한가요?",
+      "ts": "20.0",
+      "thread_ts": ""
+    }
+  ],
+  "profile": {
+    "sample_count": 3,
+    "median_chars": 30,
+    "question_ratio": 0.0,
+    "exclamation_ratio": 0.67,
+    "examples": [
+      {
+        "user": "UME",
+        "text": "교수님, 평가 기준을 먼저 확인해 보면 좋을 것 같습니다!",
+        "ts": "11.0",
+        "thread_ts": ""
+      },
+      {
+        "user": "UME",
+        "text": "제가 이해한 방향이 맞는지 확인 부탁드립니다.",
+        "ts": "13.0",
+        "thread_ts": ""
+      },
+      {
+        "user": "UME",
+        "text": "확인했습니다! 누락된 항목을 정리해서 공유드리겠습니다.",
+        "ts": "12.0",
+        "thread_ts": ""
+      }
+    ],
+    "confidence": "limited",
+    "style_summary": "짧은 존댓말, 확인 요청, 제한적인 느낌표 사용"
+  },
+  "candidates": [
+    {
+      "text": "어떤 모델의 비교가 빠졌는지 알려주실 수 있을까요?",
+      "intent": "누락 범위 확인",
+      "evidence_ts": [
+        "20.0"
+      ],
+      "style_ts": [
+        "11.0",
+        "13.0"
+      ]
+    },
+    {
+      "text": "모델별 비교 항목을 확인하면 될까요? 추가로 필요한 기준도 말씀 부탁드립니다!",
+      "intent": "기준 확인",
+      "evidence_ts": [
+        "20.0"
+      ],
+      "style_ts": [
+        "11.0",
+        "13.0"
+      ]
+    },
+    {
+      "text": "말씀하신 결과표가 어느 파일인지 확인 부탁드립니다.",
+      "intent": "대상 파일 확인",
+      "evidence_ts": [
+        "20.0"
+      ],
+      "style_ts": [
+        "11.0",
+        "13.0"
+      ]
+    }
+  ],
+  "decision": "reply",
+  "reason": "사용자를 직접 멘션한 평가표 확인 요청",
+  "snapshot": "c27e94a96e767e0fa1bb6732195929ea725a5c3c2622df64feaf2ccf40d9b5c3",
+  "review_reason": "",
+  "mcp_calls": [
+    {
+      "operation": "recent",
+      "tool": "test_recent"
+    },
+    {
+      "operation": "thread",
+      "tool": "test_thread"
+    },
+    {
+      "operation": "history",
+      "tool": "test_search"
+    }
+  ],
+  "test_mode": "synthetic MCP server + scripted model"
+}

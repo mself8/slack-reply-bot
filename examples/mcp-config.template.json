@@ -1,0 +1,13 @@
+{
+  "connection": {
+    "transport": "http",
+    "url": "https://YOUR_AUTHENTICATED_MCP_SERVER/mcp",
+    "header_env": {"Authorization": "SLACK_MCP_AUTHORIZATION_HEADER"}
+  },
+  "bindings": {
+    "recent": {"tool":"REPLACE_WITH_READ_CHANNEL_TOOL", "arguments":{"channel":"$channel"}, "result_path":"messages"},
+    "history": {"tool":"REPLACE_WITH_SEARCH_TOOL", "arguments":{"query":"$query"}, "result_path":"messages.matches"},
+    "thread": {"tool":"REPLACE_WITH_READ_THREAD_TOOL", "arguments":{"channel":"$channel","ts":"$ts"}, "result_path":"messages"},
+    "send": {"tool":"REPLACE_WITH_SEND_TOOL", "arguments":{"channel":"$channel","ts":"$ts","text":"$text"}}
+  }
+}

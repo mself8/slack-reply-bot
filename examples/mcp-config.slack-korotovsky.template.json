@@ -1,0 +1,18 @@
+{
+  "_설명": "korotovsky/slack-mcp-server(Go)용 템플릿. 도구 이름·인자는 README 기준(2026-09-06 확인). result_path와 fields는 실제 응답을 --list-tools와 한 번의 원시 호출로 보고 채울 것. 값이 틀리면 gateway가 시작 시 거부한다.",
+  "connection": {
+    "transport": "stdio",
+    "command": "slack-mcp-server",
+    "args": ["--transport", "stdio"],
+    "env_names": ["SLACK_MCP_XOXP_TOKEN", "SLACK_MCP_XOXB_TOKEN", "SLACK_MCP_XOXC_TOKEN", "SLACK_MCP_XOXD_TOKEN", "SLACK_MCP_ADD_MESSAGE_TOOL"]
+  },
+  "bindings": {
+    "recent":  {"tool": "conversations_history", "arguments": {"channel_id": "$channel", "limit": "1d"},
+                "result_path": "messages", "fields": {"user": "REPLACE_user_field", "text": "text", "ts": "REPLACE_ts_field", "thread_ts": "REPLACE_thread_ts_field"}},
+    "history": {"tool": "conversations_search_messages", "arguments": {"filter_users_from": "$user", "filter_in_channel": "$channel", "limit": 50},
+                "result_path": "messages", "fields": {"user": "REPLACE_user_field", "text": "text", "ts": "REPLACE_ts_field", "thread_ts": "REPLACE_thread_ts_field"}},
+    "thread":  {"tool": "conversations_replies", "arguments": {"channel_id": "$channel", "thread_ts": "$ts", "limit": "1d"},
+                "result_path": "messages", "fields": {"user": "REPLACE_user_field", "text": "text", "ts": "REPLACE_ts_field", "thread_ts": "REPLACE_thread_ts_field"}},
+    "send":    {"tool": "conversations_add_message", "arguments": {"channel_id": "$channel", "thread_ts": "$ts", "payload": "$text", "content_type": "text/plain"}}
+  }
+}

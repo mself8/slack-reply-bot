@@ -56,3 +56,8 @@ tmux new -s replybot
 - **봇 이름으로 발송됨.** "송윤 이름으로" 발송하려면 User Token(`xoxp-`, scope `chat:write`)을 추가 발급받아 `chat_postMessage`를 user token으로 호출하도록 수정 (v2).
 - 후보는 프로세스 메모리에만 보관 — 봇 재시작 시 이전 버튼은 만료 처리됨.
 - DM에서 쓰려면 봇과의 DM에서 멘션 없이 동작하게 `message.im` 이벤트 추가 (v2).
+
+
+## 2026-09-06: Slack MCP 기반 개인 문체 답변 추천
+
+요청한 MCP 기반 구현은 **`reply_agent.py`** 입니다. 기존 Bolt 봇과 별도 실행하며, MCP로 최근 대화·스레드·본인 과거 메시지를 읽고 LangGraph에서 답변 필요 여부와 후보를 생성합니다. 선택 전에는 발송하지 않습니다. [설계·실행·한계](docs/mcp_reply_design.md), [예제 MCP 데모](docs/mcp_demo.html)를 참고하세요. 실제 Slack 연결은 환경의 MCP 인증·도구 매핑이 필요하며 아직 실계정에서 검증하지 않았습니다.
