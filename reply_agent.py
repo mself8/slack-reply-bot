@@ -1,6 +1,6 @@
-"""Slack MCP → reply triage → own-history style → candidates → explicit selection.
+"""답변 필요 판단 → 문체 참고 → 후보 작성·검토 → 명시적 선택 그래프.
 
-Existing bot.py remains a separate Bolt implementation. This path uses MCP only.
+CLI에서는 MCP gateway를 사용하고 mention_bot.py에서는 직접 Slack gateway를 연결한다.
 """
 from __future__ import annotations
 import argparse
@@ -30,6 +30,7 @@ class State(TypedDict,total=False):
     reason:str
     snapshot:str
     review_reason:str
+    target_ts:str
 
 
 def fingerprint(messages):
@@ -87,6 +88,10 @@ def build_app(gateway,model):
 
     async def triage(state):
         if not state['recent']: return {'decision':'no_action','reason':'조회 범위에 대화가 없습니다.'}
+        if state.get('target_ts'):
+            targets=[m for m in state['recent'] if m['ts']==state['target_ts'] and m['user']!=state['user']]
+            if not targets: raise ValueError('멘션 이벤트가 조회 범위에 없거나 본인이 쓴 메시지입니다.')
+            return {'decision':'reply','target':targets[0],'reason':'Slack 멘션으로 시작된 답변 요청'}
         result=await model.complete(
             'TRIAGE: 사용자가 답변할 필요가 있는 대화 하나를 고르세요. 사용자에게 향한 질문·요청, 사용자의 담당 업무와 관련된 미해결 논의를 고려하세요. 이미 해결됐거나 사용자와 무관하면 no_action. '
             '반드시 {"decision":"reply|no_action","target_ts":"조회된 메시지 ts","reason":"판단 이유"}만 출력.',

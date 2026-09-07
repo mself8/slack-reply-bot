@@ -1,0 +1,28 @@
+display_information:
+  name: Mention Reply Agent
+  description: 지정 사용자가 멘션되면 검토된 답변 후보를 제안합니다.
+  background_color: "#1E293B"
+features:
+  bot_user:
+    display_name: Mention Reply Agent
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+      - channels:history
+      - groups:history
+      - im:history
+      - mpim:history
+settings:
+  event_subscriptions:
+    bot_events:
+      - message.channels
+      - message.groups
+      - message.im
+      - message.mpim
+  interactivity:
+    is_enabled: true
+  org_deploy_enabled: false
+  socket_mode_enabled: true
+  token_rotation_enabled: false

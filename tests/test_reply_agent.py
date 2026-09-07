@@ -73,4 +73,11 @@ class Tests(unittest.IsolatedAsyncioTestCase):
         gateway,state=await self.generate()
         with self.assertRaises(ValueError): await approve_and_send(gateway,state,0,'다른 문구')
         self.assertEqual(gateway.sent,[])
+    async def test_explicit_mention_target_skips_triage_model(self):
+        gateway=Gateway()
+        model=Model('skip')
+        state=await build_app(gateway,model).ainvoke(
+            {'user':'UME','channel':'CTEST','target_ts':'20.0'})
+        self.assertEqual(state['decision'],'reply')
+        self.assertEqual(state['target']['ts'],'20.0')
 if __name__=='__main__': unittest.main()
